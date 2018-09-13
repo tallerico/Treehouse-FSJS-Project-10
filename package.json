@@ -1,0 +1,26 @@
+{
+  "name": "treehouse-fsjs-project-10",
+  "version": "1.0.0",
+  "description": "Library Manager",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "sequelize": "^4.38.1",
+    "sequelize-cli": "^4.1.1",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tallerico/Treehouse-FSJS-Project-10.git"
+  },
+  "author": "Mike Tallerico",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tallerico/Treehouse-FSJS-Project-10/issues"
+  },
+  "homepage": "https://github.com/tallerico/Treehouse-FSJS-Project-10#readme"
+}
