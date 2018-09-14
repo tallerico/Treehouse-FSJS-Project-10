@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
