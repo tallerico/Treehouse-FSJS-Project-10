@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    title A Brief History of Time
+    link(rel='stylesheet', href='stylesheets/style.css')
+  body
+    nav
+      ul
+        li
+          a(href='all_books.html') Books
+        li
+          a(href='all_patrons.html') Patrons
+        li
+          a(href='all_loans.html') Loans
+    h1 Book: A Brief History of Time
+    form
+      p
+        label(for='title') Title
+        input#title(value='A Brief History of Time', type='text')
+      p
+        label(for='author') Author
+        input#author(value='Stephen Hawking', type='text')
+      p
+        label(for='genre') Genre
+        input#genre(value='Non Fiction', type='text')
+      p
+        label(for='first_published') First Published
+        input#first_published(value='1988', type='text')
+      p
+        input(value='Update', type='submit')
+    h2 Loan History
+    table
+      thead
+        tr
+          th Book
+          th Patron 
+          th Loaned on
+          th Return by 
+          th Returned on
+          th Action
+      tbody
+        tr
+          td
+            a(href='book_detail.html') A Brief History of Time
+          td
+            a(href='patron_detail.html') Andrew Chalkley
+          td 2015-12-12
+          td 2015-12-19
+          td
+          td
+            a.button(href='return_book.html') Return Book

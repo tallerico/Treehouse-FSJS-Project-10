@@ -1,10 +1,12 @@
 const Sequelize = require('sequelize')
-const Books = require('../models').books
+const { books } = require('../models')
 
 exports.getBooks = () => {
-	Books.findAll({
-		attributes: ['title', 'author', 'genre', 'first_published'],
-	}).then(books => {
-		return books
-	})
+	books
+		.findAll({
+			attributes: ['title', 'author', 'genre', 'first_published'],
+		})
+		.then(books => {
+			return books
+		})
 }
