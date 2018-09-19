@@ -3,12 +3,11 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-const debug = require('debug')('treehouse-fsjs-project-10:server')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 
-const app = express()
+var app = express()
 
 // view engine setup
 app.set('views', './views')
@@ -39,8 +38,4 @@ app.use(function(err, req, res, next) {
 	res.render('error')
 })
 
-app.set('port', process.env.PORT || 3000)
-
-const server = app.listen(app.get('port'), function() {
-	debug('Express server listening on port ' + server.address().port)
-})
+module.exports = app
