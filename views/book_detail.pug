@@ -2,30 +2,30 @@ doctype html
 html
   head
     title A Brief History of Time
-    link(rel='stylesheet', href='stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
   body
     nav
       ul
         li
-          a(href='all_books.html') Books
+          a(href='/all_books') Books
         li
-          a(href='all_patrons.html') Patrons
+          a(href='/all_patrons') Patrons
         li
-          a(href='all_loans.html') Loans
+          a(href='/all_loans') Loans
     h1 Book: A Brief History of Time
     form
       p
         label(for='title') Title
-        input#title(value='A Brief History of Time', type='text')
+        input#title(value=`${book[0].dataValues.title}`, type='text')
       p
         label(for='author') Author
-        input#author(value='Stephen Hawking', type='text')
+        input#author(value=`${book[0].dataValues.author}`, type='text')
       p
         label(for='genre') Genre
-        input#genre(value='Non Fiction', type='text')
+        input#genre(value=`${book[0].dataValues.genre}`, type='text')
       p
         label(for='first_published') First Published
-        input#first_published(value='1988', type='text')
+        input#first_published(value=`${book[0].dataValues.first_published}`, type='text')
       p
         input(value='Update', type='submit')
     h2 Loan History
