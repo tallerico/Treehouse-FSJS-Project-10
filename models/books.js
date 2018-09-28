@@ -1,4 +1,7 @@
 'use strict'
+
+const loans = require('./loans')
+
 module.exports = (sequelize, DataTypes) => {
 	const books = sequelize.define(
 		'books',
@@ -9,10 +12,14 @@ module.exports = (sequelize, DataTypes) => {
 			genre: DataTypes.STRING,
 			first_published: DataTypes.INTEGER,
 		},
-		{},
+		{
+			timestamps: false,
+			createdAt: false,
+			updatedAt: false,
+		},
 	)
 	books.associate = function(models) {
-		// associations can be defined here
+		books.belongsTo(models.loans)
 	}
 	return books
 }

@@ -10,10 +10,15 @@ module.exports = (sequelize, DataTypes) => {
 			return_by: DataTypes.DATE,
 			returned_on: DataTypes.DATE,
 		},
-		{},
+		{
+			timestamps: false,
+			createdAt: false,
+			updatedAt: false,
+		},
 	)
 	loans.associate = function(models) {
-		// associations can be defined here
+		loans.hasOne(models.books)
+		loans.hasOne(models.patrons)
 	}
 	return loans
 }

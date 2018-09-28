@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const Sequelize = require('sequelize')
 
 const { books } = require('../models')
 const { patrons } = require('../models')
+const { loans } = require('../models')
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -28,6 +30,12 @@ router.get('/book_detail/:id', (req, res, next) => {
 			where: {
 				id: req.params.id,
 			},
+			include: [
+				{
+					model: loans,
+					where: { book_id: Sequelize.col('books.id') },
+				},
+			],
 		})
 		.then(book => {
 			console.log(book)

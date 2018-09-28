@@ -11,10 +11,14 @@ module.exports = (sequelize, DataTypes) => {
 			library_id: DataTypes.STRING,
 			zip_code: DataTypes.INTEGER,
 		},
-		{},
+		{
+			timestamps: false,
+			createdAt: false,
+			updatedAt: false,
+		},
 	)
 	patrons.associate = function(models) {
-		// associations can be defined here
+		patrons.belongsTo(models.loans)
 	}
 	return patrons
 }
