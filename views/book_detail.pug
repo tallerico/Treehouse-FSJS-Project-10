@@ -1,18 +1,11 @@
 doctype html
 html
   head
-    title A Brief History of Time
+    title #{book[0].dataValues.title}
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    nav
-      ul
-        li
-          a(href='/all_books') Books
-        li
-          a(href='/all_patrons') Patrons
-        li
-          a(href='/all_loans') Loans
-    h1 Book: A Brief History of Time
+    include nav.pug
+    h1 Book: #{book[0].dataValues.title}
     form
       p
         label(for='title') Title
@@ -39,13 +32,14 @@ html
           th Returned on
           th Action
       tbody
-        tr
-          td
-            a(href='book_detail.html') A Brief History of Time
-          td
-            a(href='patron_detail.html') Andrew Chalkley
-          td 2015-12-12
-          td 2015-12-19
-          td
-          td
-            a.button(href='return_book.html') Return Book
+        each loan in loans
+          tr
+            td
+              a(href='book_detail.html') #{book[0].dataValues.title}
+            td
+              a(href='patron_detail.html') #{loan.dataValues.patron.dataValues.first_name} #{loan.dataValues.patron.dataValues.last_name}
+            td #{loan.dataValues.loaned_on}
+            td #{loan.dataValues.return_by}
+            td #{loan.dataValues.returned_on}
+            td
+              a.button(href='return_book.html') Return Book

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	)
 	books.associate = function(models) {
-		books.belongsTo(models.loans)
+		books.hasMany(models.loans, { foreignKey: 'book_id' })
 	}
 	return books
 }

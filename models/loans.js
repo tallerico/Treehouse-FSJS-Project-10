@@ -15,10 +15,19 @@ module.exports = (sequelize, DataTypes) => {
 			createdAt: false,
 			updatedAt: false,
 		},
+		{
+			instanceMethods: {
+				getLoanedTo: function() {
+					return patrons.find({
+						where: { patron_id: this.patron_id },
+					})
+				},
+			},
+		},
 	)
 	loans.associate = function(models) {
-		loans.hasOne(models.books)
-		loans.hasOne(models.patrons)
+		loans.belongsTo(models.books, { foreignKey: 'book_id' })
+		loans.belongsTo(models.patrons, { foreignKey: 'patron_id' })
 	}
 	return loans
 }

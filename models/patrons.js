@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	)
 	patrons.associate = function(models) {
-		patrons.belongsTo(models.loans)
+		patrons.hasMany(models.loans, { foreignKey: 'patron_id' })
 	}
 	return patrons
 }
