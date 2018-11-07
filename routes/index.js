@@ -56,8 +56,25 @@ router.get('/all_patrons', (req, res, next) => {
 			attributes: ['id', 'first_name', 'last_name', 'address', 'email', 'library_id', 'zip_code'],
 		})
 		.then(patrons => {
-			console.log(patrons)
 			res.render('all_patrons', { patrons })
 		})
 })
+
+router.get('/all_loans', (req, res, next) => {
+	loans
+		.findAll({
+			include: [
+				{
+					model: patrons,
+				},
+				{
+					model: books,
+				},
+			],
+		})
+		.then(loans => {
+			res.render('all_loans', { loans })
+		})
+})
+
 module.exports = router
