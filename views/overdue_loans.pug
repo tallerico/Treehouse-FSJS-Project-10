@@ -1,11 +1,11 @@
 doctype html
 html
   head
-    title Loans
+    title Overdue Loans
     link(rel='stylesheet', href='stylesheets/style.css')
   body
     include nav.pug
-    h1 Loans
+    h1 Overdue Loans
     p
       a.button(href='new_loan.html') Create New Loan
     include includes/loan_filters.pug
@@ -30,4 +30,4 @@ html
             td #{loan.dataValues.returned_on}
             td
               a.button(href='return_book.html') Return Book
-          
+        

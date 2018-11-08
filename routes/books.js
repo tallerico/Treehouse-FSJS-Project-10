@@ -24,7 +24,6 @@ router.get('/overdue_books', (req, res, next) => {
 			},
 		})
 		.then(books => {
-			console.log(books)
 			res.render('overdue_books', { books })
 		})
 })
