@@ -2,10 +2,10 @@ doctype html
 html
   head
     title Books
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
   body
     include nav.pug
-    h1 Books
+    h1 Checked Out Books
     p
       a.button(href='new_book.html') Create New Book
     include book_filters.pug
@@ -19,8 +19,8 @@ html
       tbody
         each book in books
           tr
-          td
-            a(href=`book_detail/${book.dataValues.id}`) #{book.dataValues.title}
-          td #{book.dataValues.author}
-          td #{book.dataValues.genre}
-          td #{book.dataValues.first_published}
+            td
+              a(href=`book_detail/${book.dataValues.id}`) #{book.dataValues.title}
+            td #{book.dataValues.author}
+            td #{book.dataValues.genre}
+            td #{book.dataValues.first_published}
