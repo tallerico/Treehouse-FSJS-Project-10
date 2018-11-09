@@ -37,7 +37,7 @@ html
             td
               a(href='book_detail.html') #{book[0].dataValues.title}
             td
-              a(href='patron_detail.html') #{loan.dataValues.patron.dataValues.first_name} #{loan.dataValues.patron.dataValues.last_name}
+              a(href=`/patron_detail/${loan.dataValues.patron.dataValues.id}`) #{loan.dataValues.patron.dataValues.first_name} #{loan.dataValues.patron.dataValues.last_name}
             td #{loan.dataValues.loaned_on}
             td #{loan.dataValues.return_by}
             td #{loan.dataValues.returned_on}

@@ -1,0 +1,53 @@
+doctype html
+html
+  head
+    title #{patrons[0].dataValues.first_name} #{patrons[0].dataValues.last_name}
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    include nav.pug
+    h1 Patron: #{patrons[0].dataValues.first_name} #{patrons[0].dataValues.last_name}
+    form
+      p
+        label(for='first_name') First Name
+        input#first_name(type='text', value=`${patrons[0].dataValues.first_name}`)
+      p
+        label(for='last_name') Last Name
+        input#last_name(type='text', value=`${patrons[0].dataValues.last_name}`)
+      p
+        label(for='address')  Address
+        input#address(type='text', value=`${patrons[0].dataValues.address}`)
+      p
+        label(for='email') Email
+        input#email(type='text', value=`${patrons[0].dataValues.email}`)
+      p
+        label(for='library_id') Library ID
+        input#library_id(type='text', value=`${patrons[0].dataValues.library_id}`)
+      p
+        label(for='zip_code') Zip Code
+        input#zip_code(type='text', value=`${patrons[0].dataValues.zip_code}`)
+      p
+        input(type='submit', value='Update')
+    h2 Loan History
+    table
+      thead
+        tr
+          th Book
+          th Patron 
+          th Loaned on
+          th Return by 
+          th Returned on
+          th Action
+      tbody
+        each loan in loans
+          tr
+            td
+              a(href=`/book_detail/${loan.dataValues.book.dataValues.id}`) #{loan.dataValues.book.dataValues.title}
+            td
+              a(href=`/patron_detail/${patrons[0].dataValues.id}`) #{patrons[0].dataValues.first_name} #{patrons[0].dataValues.last_name}
+            td #{loan.dataValues.loaned_on}
+            td #{loan.dataValues.return_by}
+            td #{loan.dataValues.returned_on}
+            td
+              a.button(href='return_book.html') Return Book
+      
+       

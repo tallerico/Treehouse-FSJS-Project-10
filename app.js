@@ -7,6 +7,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const booksRouter = require('./routes/books')
 const loansRouter = require('./routes/loans')
+const patronssRouter = require('./routes/patrons')
 
 var app = express()
 
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static('public'))
 
-app.use('/', indexRouter, booksRouter, loansRouter)
+app.use('/', indexRouter, booksRouter, loansRouter, patronssRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
