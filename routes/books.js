@@ -5,6 +5,8 @@ const Op = Sequelize.Op
 const { books } = require('../models')
 const { patrons } = require('../models')
 const { loans } = require('../models')
+const { body, validationResult } = require('express-validator/check')
+const { sanitizeBody } = require('express-validator/filter')
 
 router.get('/overdue_books', (req, res, next) => {
 	const mainDate = new Date()
@@ -46,6 +48,10 @@ router.get('/checked_books', (req, res, next) => {
 			console.log(books)
 			res.render('checked_books', { books })
 		})
+})
+
+router.get('/new_book', (req, res, next) => {
+	res.render('new_book')
 })
 
 module.exports = router

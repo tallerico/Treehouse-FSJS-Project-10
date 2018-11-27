@@ -4,16 +4,9 @@ html
     title New Book
     link(rel='stylesheet', href='stylesheets/style.css')
   body
-    nav
-      ul
-        li
-          a(href='all_books.html') Books
-        li
-          a(href='all_patrons.html') Patrons
-        li
-          a(href='all_loans.html') Loans
+    include nav.pug
     h1 New Book
-    form
+    form(action='/create_book' method='post')
       p
         label(for='title') Title
         input#title(type='text')

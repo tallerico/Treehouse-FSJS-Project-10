@@ -7,8 +7,20 @@ module.exports = (sequelize, DataTypes) => {
 		'books',
 		{
 			id: { type: DataTypes.INTEGER, primaryKey: true },
-			title: DataTypes.STRING,
-			author: DataTypes.STRING,
+			title: {
+				type: DataTypes.STRING,
+				validate: {
+					notEmpty: true,
+					notNull: true,
+				},
+			},
+			author: {
+				type: DataTypes.STRING,
+				validate: {
+					notEmpty: true,
+					notNull: true,
+				},
+			},
 			genre: DataTypes.STRING,
 			first_published: DataTypes.INTEGER,
 		},
