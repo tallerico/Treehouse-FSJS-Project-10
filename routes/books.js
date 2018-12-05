@@ -55,7 +55,7 @@ router.get('/new_book', (req, res, next) => {
 })
 
 router.post('/create_book', (req, res) => {
-	console.log(req.body), res.render('new_book', {})
+	console.log(req), res.render('new_book', {})
 })
 
 module.exports = router
