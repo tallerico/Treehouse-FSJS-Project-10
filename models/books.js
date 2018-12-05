@@ -11,14 +11,12 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.STRING,
 				validate: {
 					notEmpty: true,
-					notNull: true,
 				},
 			},
 			author: {
 				type: DataTypes.STRING,
 				validate: {
 					notEmpty: true,
-					notNull: true,
 				},
 			},
 			genre: DataTypes.STRING,

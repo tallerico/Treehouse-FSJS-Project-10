@@ -54,8 +54,13 @@ router.get('/new_book', (req, res, next) => {
 	res.render('new_book')
 })
 
-router.post('/create_book', (req, res) => {
-	console.log(req), res.render('new_book', {})
+router.post('/create_book', (req, res, next) => {
+	books.create({
+		title: req.body.title,
+		author: req.body.author,
+		genre: req.body.genre,
+		first_published: req.body.published,
+	})
 })
 
 module.exports = router
