@@ -12,7 +12,6 @@ router.get('/overdue_books', (req, res, next) => {
 	const mainDate = new Date()
 	const date = JSON.stringify(mainDate)
 	const currDate = date.split('T')[0]
-	console.log(currDate)
 	books
 		.findAll({
 			include: {
@@ -77,6 +76,11 @@ router.post('/create_book', (req, res, next) => {
 			}
 		})
 })
+
+//TODO finish update route
+// router.post('/update_book', (req, res, next) => {
+// 	books.update()
+// })
 
 router.get('/return_book', (req, res, next) => {
 	res.render('return_book')
