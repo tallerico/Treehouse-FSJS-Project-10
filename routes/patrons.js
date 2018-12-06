@@ -51,6 +51,8 @@ router.post('/create_patron', (req, res, next) => {
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
 				res.render('new_patron', { errors: error.errors })
+			} else {
+				throw error
 			}
 		})
 })

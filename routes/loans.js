@@ -26,8 +26,10 @@ router.get('/overdue_loans', (req, res, next) => {
 			},
 		})
 		.then(loans => {
-			console.log(loans)
 			res.render('overdue_loans', { loans })
+		})
+		.catch(error => {
+			res.send(500, error)
 		})
 })
 
@@ -48,8 +50,10 @@ router.get('/checked_loans', (req, res, next) => {
 			},
 		})
 		.then(loans => {
-			console.log(loans)
 			res.render('checked_loans', { loans })
+		})
+		.catch(error => {
+			res.send(500, error)
 		})
 })
 

@@ -28,13 +28,15 @@ router.get('/overdue_books', (req, res, next) => {
 		.then(books => {
 			res.render('overdue_books', { books })
 		})
+		.catch(error => {
+			res.send(500, error)
+		})
 })
 
 router.get('/checked_books', (req, res, next) => {
 	const mainDate = new Date()
 	const date = JSON.stringify(mainDate)
 	const currDate = date.split('T')[0]
-	console.log(currDate)
 	books
 		.findAll({
 			include: {
@@ -45,8 +47,10 @@ router.get('/checked_books', (req, res, next) => {
 			},
 		})
 		.then(books => {
-			console.log(books)
 			res.render('checked_books', { books })
+		})
+		.catch(error => {
+			res.send(500, error)
 		})
 })
 
@@ -55,12 +59,23 @@ router.get('/new_book', (req, res, next) => {
 })
 
 router.post('/create_book', (req, res, next) => {
-	books.create({
-		title: req.body.title,
-		author: req.body.author,
-		genre: req.body.genre,
-		first_published: req.body.published,
-	})
+	books
+		.create({
+			title: req.body.title,
+			author: req.body.author,
+			genre: req.body.genre,
+			first_published: req.body.published,
+		})
+		.then(response => {
+			res.redirect('/all_books')
+		})
+		.catch(error => {
+			if (error.name === 'SequelizeValidationError') {
+				res.render('new_book', { errors: error.errors })
+			} else {
+				throw error
+			}
+		})
 })
 
 module.exports = router

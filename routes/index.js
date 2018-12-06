@@ -21,6 +21,9 @@ router.get('/all_books', (req, res, next) => {
 		.then(books => {
 			res.render('all_books', { books })
 		})
+		.catch(error => {
+			res.send(500, error)
+		})
 })
 
 // GET book_detail/:id
@@ -47,6 +50,9 @@ router.get('/book_detail/:id', (req, res, next) => {
 				.then(loans => {
 					res.render('book_detail', { book, loans })
 				})
+				.catch(error => {
+					res.send(500, error)
+				})
 		})
 })
 
@@ -57,6 +63,9 @@ router.get('/all_patrons', (req, res, next) => {
 		})
 		.then(patrons => {
 			res.render('all_patrons', { patrons })
+		})
+		.catch(error => {
+			res.send(500, error)
 		})
 })
 
@@ -74,6 +83,9 @@ router.get('/all_loans', (req, res, next) => {
 		})
 		.then(loans => {
 			res.render('all_loans', { loans })
+		})
+		.catch(error => {
+			res.send(500, error)
 		})
 })
 
