@@ -43,6 +43,9 @@ router.post('/create_patron', (req, res, next) => {
 			library_id: req.body.library_id,
 			zip_code: req.body.zip,
 		})
+		.then(response => {
+			res.redirect('/all_patrons')
+		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
 				res.render('new_patron', { errors: error.errors })
