@@ -23,9 +23,11 @@ router.get('/patron_detail/:id', (req, res, next) => {
 					include: [{ model: books }],
 				})
 				.then(loans => {
-					console.log(patrons)
 					res.render('patron_detail', { patrons, loans })
 				})
+		})
+		.catch(error => {
+			res.send(500, error)
 		})
 })
 
