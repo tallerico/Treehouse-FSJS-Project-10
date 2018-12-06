@@ -6,7 +6,7 @@ html
   body
     include nav.pug
     h1 Book: #{book[0].dataValues.title}
-    form
+    form(action='/create_book' method='POST')
       p
         label(for='title') Title
         input#title(value=`${book[0].dataValues.title}`, type='text')
@@ -42,4 +42,5 @@ html
             td #{loan.dataValues.return_by}
             td #{loan.dataValues.returned_on}
             td
-              a.button(href='return_book.html') Return Book
+              if(!loan.dataValues.returned_on)
+                a.button(href='/return_book') Return Book

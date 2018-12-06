@@ -78,4 +78,8 @@ router.post('/create_book', (req, res, next) => {
 		})
 })
 
+router.get('/return_book', (req, res, next) => {
+	res.render('return_book')
+})
+
 module.exports = router
