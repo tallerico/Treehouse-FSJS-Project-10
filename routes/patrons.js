@@ -34,14 +34,20 @@ router.get('/new_patron', (req, res, next) => {
 })
 
 router.post('/create_patron', (req, res, next) => {
-	patrons.create({
-		first_name: req.body.first_name,
-		last_name: req.body.last_name,
-		address: req.body.address,
-		email: req.body.email,
-		library_id: req.body.library_id,
-		zip_code: req.body.zip,
-	})
+	patrons
+		.create({
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
+			address: req.body.address,
+			email: req.body.email,
+			library_id: req.body.library_id,
+			zip_code: req.body.zip,
+		})
+		.catch(error => {
+			if (error.name === 'SequelizeValidationError') {
+				res.render('new_patron', { errors: error.errors })
+			}
+		})
 })
 
 module.exports = router
