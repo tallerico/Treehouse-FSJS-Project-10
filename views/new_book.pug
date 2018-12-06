@@ -4,6 +4,7 @@ html
     title New Book
     link(rel='stylesheet', href='stylesheets/style.css')
   body
+    include includes/errors
     include nav.pug
     h1 New Book
     form(action='/create_book' method='POST')
