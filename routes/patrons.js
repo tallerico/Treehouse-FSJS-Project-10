@@ -29,4 +29,19 @@ router.get('/patron_detail/:id', (req, res, next) => {
 		})
 })
 
+router.get('/new_patron', (req, res, next) => {
+	res.render('new_patron')
+})
+
+router.post('/create_patron', (req, res, next) => {
+	patrons.create({
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+		address: req.body.address,
+		email: req.body.email,
+		library_id: req.body.library_id,
+		zip_code: req.body.zip,
+	})
+})
+
 module.exports = router

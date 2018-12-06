@@ -19,8 +19,19 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: true,
 				},
 			},
-			genre: DataTypes.STRING,
-			first_published: DataTypes.INTEGER,
+			genre: {
+				type: DataTypes.STRING,
+				validate: {
+					notEmpty: true,
+				},
+			},
+			first_published: {
+				type: DataTypes.INTEGER,
+				validate: {
+					notEmpty: false,
+					isNumeric: true,
+				},
+			},
 		},
 		{
 			timestamps: false,
