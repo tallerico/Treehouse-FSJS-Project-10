@@ -77,10 +77,28 @@ router.post('/create_book', (req, res, next) => {
 		})
 })
 
-//TODO finish update route
-// router.post('/update_book', (req, res, next) => {
-// 	books.update()
-// })
+router.post('/update_book/:id', (req, res, next) => {
+	books
+		.update(
+			{
+				title: req.body.title,
+				author: req.body.author,
+				genre: req.body.genre,
+				first_published: req.body.published,
+			},
+			{ where: { id: req.params.id } },
+		)
+		.then(response => {
+			res.redirect('/all_books')
+		})
+		.catch(error => {
+			if (error.name === 'SequelizeValidationError') {
+				res.render('new_book', { errors: error.errors })
+			} else {
+				throw error
+			}
+		})
+})
 
 router.get('/return_book', (req, res, next) => {
 	res.render('return_book')

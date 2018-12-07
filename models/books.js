@@ -28,8 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 			first_published: {
 				type: DataTypes.INTEGER,
 				validate: {
-					notEmpty: false,
-					isNumeric: true,
+					// isNumeric: true,
 				},
 			},
 		},

@@ -7,7 +7,7 @@ html
     include includes/errors.pug
     include nav.pug
     h1 Book: #{book[0].dataValues.title}
-    form(action='/update_book' method='POST')
+    form(action=`/update_book/${book[0].dataValues.id}` method='POST')
       p
         label(for='title') Title
         input#title(value=`${book[0].dataValues.title}`, type='text' name='title')
