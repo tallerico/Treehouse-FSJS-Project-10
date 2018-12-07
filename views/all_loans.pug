@@ -7,7 +7,7 @@ html
     include nav.pug
     h1 Loans
     p
-      a.button(href='new_loan.html') Create New Loan
+      a.button(href='/new_loan') Create New Loan
     include includes/loan_filters.pug
     table
       thead
@@ -29,5 +29,6 @@ html
             td #{loan.dataValues.return_by}
             td #{loan.dataValues.returned_on}
             td
-              a.button(href='return_book.html') Return Book
+              if(!loan.dataValues.returned_on)
+                a.button(href='/return_book') Return Book
           

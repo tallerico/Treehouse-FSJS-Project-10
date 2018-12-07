@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title New Loan
+    link(rel='stylesheet', href='stylesheets/style.css')
+  body
+    include includes/errors.pug
+    include nav.pug
+    h1 New Loan
+    form(action='/create_loan' method='POST')
+      p
+        label(for='book_id') Book
+        select#book_id
+          each book in books
+            option(value=`${book.dataValues.id}` name='book') #{book.dataValues.title}
+      p
+        label(for='patron_id') Patron
+        select#patron_id
+          each patron in patrons
+            option(value=`${patron.dataValues.id}` name='patron') #{patron.dataValues.first_name} #{patron.dataValues.last_name}
+      p
+        label(for='loaned_on') Loaned on:
+        input#loaned_on(type='text', value=`${todaysDate}` name='LoanedOn')
+      p
+        label(for='return_by') Return by:
+        input#return_by(type='text', value=`${returnBy}` name='returnBy')
+      p
+        input(type='submit', value='Create New Loan')

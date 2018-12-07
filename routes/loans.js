@@ -57,4 +57,39 @@ router.get('/checked_loans', (req, res, next) => {
 		})
 })
 
+router.get('/new_loan', (req, res, next) => {
+	function addDays(dateObj, numDays) {
+		dateObj.setDate(dateObj.getDate() + numDays)
+		return dateObj
+	}
+	const todaysDate = new Date()
+	const returnBy = addDays(new Date(), 7)
+
+	books.findAll().then(books => {
+		patrons.findAll().then(patrons => {
+			res.render('new_loan', { books, patrons, todaysDate, returnBy })
+		})
+	})
+})
+
+router.post('/create_loan', (req, res, next) => {
+	loans
+		.create({
+			book_id: req.body.book,
+			patron_id: req.body.patron,
+			loaned_on: req.body.loanedOn,
+			return_by: req.body.returnBy,
+		})
+		.then(response => {
+			res.redirect('/all_loans')
+		})
+		.catch(error => {
+			if (error.name === 'SequelizeValidationError') {
+				res.render('new_book', { errors: error.errors })
+			} else {
+				throw error
+			}
+		})
+})
+
 module.exports = router
