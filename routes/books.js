@@ -8,6 +8,51 @@ const { loans } = require('../models')
 const { body, validationResult } = require('express-validator/check')
 const { sanitizeBody } = require('express-validator/filter')
 
+/* GET all_books page */
+
+router.get('/all_books', (req, res, next) => {
+	books
+		.findAll({
+			attributes: ['id', 'title', 'author', 'genre', 'first_published'],
+		})
+		.then(books => {
+			res.render('all_books', { books })
+		})
+		.catch(error => {
+			res.send(500, error)
+		})
+})
+
+// GET book_detail/:id
+
+router.get('/book_detail/:id', (req, res, next) => {
+	books
+		.findAll({
+			where: {
+				id: req.params.id,
+			},
+		})
+		.then(book => {
+			loans
+				.findAll({
+					where: {
+						book_id: req.params.id,
+					},
+					include: [
+						{
+							model: patrons,
+						},
+					],
+				})
+				.then(loans => {
+					res.render('book_detail', { book, loans })
+				})
+				.catch(error => {
+					res.send(500, error)
+				})
+		})
+})
+
 router.get('/overdue_books', (req, res, next) => {
 	const mainDate = new Date()
 	const date = JSON.stringify(mainDate)

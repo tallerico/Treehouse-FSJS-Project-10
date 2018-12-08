@@ -6,6 +6,19 @@ const { books } = require('../models')
 const { patrons } = require('../models')
 const { loans } = require('../models')
 
+router.get('/all_patrons', (req, res, next) => {
+	patrons
+		.findAll({
+			attributes: ['id', 'first_name', 'last_name', 'address', 'email', 'library_id', 'zip_code'],
+		})
+		.then(patrons => {
+			res.render('all_patrons', { patrons })
+		})
+		.catch(error => {
+			res.send(500, error)
+		})
+})
+
 router.get('/patron_detail/:id', (req, res, next) => {
 	const mainDate = new Date()
 	patrons

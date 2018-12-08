@@ -6,6 +6,26 @@ const { books } = require('../models')
 const { patrons } = require('../models')
 const { loans } = require('../models')
 
+router.get('/all_loans', (req, res, next) => {
+	loans
+		.findAll({
+			include: [
+				{
+					model: patrons,
+				},
+				{
+					model: books,
+				},
+			],
+		})
+		.then(loans => {
+			res.render('all_loans', { loans })
+		})
+		.catch(error => {
+			res.send(500, error)
+		})
+})
+
 router.get('/overdue_loans', (req, res, next) => {
 	const mainDate = new Date()
 	loans
@@ -85,7 +105,7 @@ router.post('/create_loan', (req, res, next) => {
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
-				res.render('new_book', { errors: error.errors })
+				res.render('new_loan', { errors: error.errors })
 			} else {
 				throw error
 			}

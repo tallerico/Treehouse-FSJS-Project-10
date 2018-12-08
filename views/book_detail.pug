@@ -36,7 +36,7 @@ html
         each loan in loans
           tr
             td
-              a(href='book_detail.html') #{book[0].dataValues.title}
+              a(href=`/book_detail/${book[0].dataValues.id}`) #{book[0].dataValues.title}
             td
               a(href=`/patron_detail/${loan.dataValues.patron.dataValues.id}`) #{loan.dataValues.patron.dataValues.first_name} #{loan.dataValues.patron.dataValues.last_name}
             td #{loan.dataValues.loaned_on}
