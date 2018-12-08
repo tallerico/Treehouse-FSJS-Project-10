@@ -100,8 +100,45 @@ router.post('/update_book/:id', (req, res, next) => {
 		})
 })
 
-router.get('/return_book', (req, res, next) => {
-	res.render('return_book')
+router.get('/return_book/:id', (req, res, next) => {
+	const todaysDate = new Date()
+	loans
+		.findAll({
+			include: [
+				{
+					model: patrons,
+				},
+				{
+					model: books,
+				},
+			],
+			where: {
+				id: req.params.id,
+			},
+		})
+		.then(loan => {
+			res.render('return_book', { loan, todaysDate })
+		})
+})
+
+router.post(`/return/:id`, (req, res, next) => {
+	loans
+		.update(
+			{
+				returned_on: req.body.returnDate,
+			},
+			{ where: { id: req.params.id } },
+		)
+		.then(response => {
+			res.redirect('/all_loans')
+		})
+		.catch(error => {
+			if (error.name === 'SequelizeValidationError') {
+				res.render('new_book', { errors: error.errors })
+			} else {
+				throw error
+			}
+		})
 })
 
 module.exports = router

@@ -1,4 +1,7 @@
 'use strict'
+
+const Sequelize = require('sequelize')
+
 module.exports = (sequelize, DataTypes) => {
 	const loans = sequelize.define(
 		'loans',
@@ -6,9 +9,23 @@ module.exports = (sequelize, DataTypes) => {
 			id: { type: DataTypes.INTEGER, primaryKey: true },
 			book_id: DataTypes.INTEGER,
 			patron_id: DataTypes.INTEGER,
-			loaned_on: DataTypes.DATE,
-			return_by: DataTypes.DATE,
-			returned_on: DataTypes.DATE,
+			loaned_on: {
+				type: Sequelize.DATEONLY,
+				validate: {
+					notEmpty: {
+						msg: 'Date Required',
+					},
+				},
+			},
+			return_by: {
+				type: Sequelize.DATEONLY,
+				validate: {
+					notEmpty: {
+						msg: 'Date Required',
+					},
+				},
+			},
+			returned_on: { type: Sequelize.DATEONLY },
 		},
 		{
 			timestamps: false,

@@ -2,25 +2,25 @@ doctype html
 html
   head
     title Return Book
-    link(rel='stylesheet', href='stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
   body
     include nav.pug
     h1 Patron: Return Book
     p
       strong Book Title: 
-      | Harry Potter and the Goblet of Fire
+      | #{loan[0].dataValues.book.dataValues.title}
     p
       strong Loaned By: 
-      | Andrew Chalkley
+      | #{loan[0].dataValues.patron.dataValues.first_name} #{loan[0].dataValues.patron.dataValues.last_name}
     p
       strong Loaned On: 
-      | 2015-12-11
+      | #{loan[0].dataValues.loaned_on}
     p
       strong Return By: 
-      | 2015-12-18
-    form
+      | #{loan[0].dataValues.return_by}
+    form(action=`/return/${loan[0].dataValues.id}` method='POST')
       p
         label(for='returned_on') Returned on:
-        input#returned_on(type='text', value='2020-10-10')
+        input#returned_on(type='text', value=`${todaysDate}` name='returnDate')
       p
         input(type='submit', value='Return Book')
