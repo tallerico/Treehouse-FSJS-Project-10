@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 	const loans = sequelize.define(
 		'loans',
 		{
-			id: { type: DataTypes.INTEGER, primaryKey: true },
+			id: { type: DataTypes.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true },
 			book_id: DataTypes.INTEGER,
 			patron_id: DataTypes.INTEGER,
 			loaned_on: {

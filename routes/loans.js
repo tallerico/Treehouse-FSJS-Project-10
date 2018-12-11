@@ -105,7 +105,18 @@ router.post('/create_loan', (req, res, next) => {
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
-				res.render('new_loan', { errors: error.errors })
+				function addDays(dateObj, numDays) {
+					dateObj.setDate(dateObj.getDate() + numDays)
+					return dateObj
+				}
+				const todaysDate = new Date()
+				const returnBy = addDays(new Date(), 7)
+
+				books.findAll().then(books => {
+					patrons.findAll().then(patrons => {
+						res.render('new_loan', { errors: error.errors, books, patrons, todaysDate, returnBy })
+					})
+				})
 			} else {
 				throw error
 			}
