@@ -42,15 +42,15 @@ module.exports = (sequelize, DataTypes) => {
 			createdAt: false,
 			updatedAt: false,
 		},
-		{
-			instanceMethods: {
-				getLoanedTo: function() {
-					return patrons.find({
-						where: { patron_id: this.patron_id },
-					})
-				},
-			},
-		},
+		// {
+		// 	instanceMethods: {
+		// 		getLoanedTo: function() {
+		// 			return patrons.find({
+		// 				where: { patron_id: this.patron_id },
+		// 			})
+		// 		},
+		// 	},
+		// },
 	)
 	loans.associate = function(models) {
 		loans.belongsTo(models.books, { foreignKey: 'book_id' })

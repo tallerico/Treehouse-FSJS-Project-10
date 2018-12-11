@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const moment = require('moment')
 const { books } = require('../models')
 const { patrons } = require('../models')
 const { loans } = require('../models')
@@ -78,12 +79,10 @@ router.get('/checked_loans', (req, res, next) => {
 })
 
 router.get('/new_loan', (req, res, next) => {
-	function addDays(dateObj, numDays) {
-		dateObj.setDate(dateObj.getDate() + numDays)
-		return dateObj
-	}
-	const todaysDate = new Date()
-	const returnBy = addDays(new Date(), 7)
+	const todaysDate = moment().format('YYYY-MM-DD')
+	const returnBy = moment()
+		.add(7, 'days')
+		.format('YYYY-MM-DD')
 
 	books.findAll().then(books => {
 		patrons.findAll().then(patrons => {
@@ -105,12 +104,10 @@ router.post('/create_loan', (req, res, next) => {
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
-				function addDays(dateObj, numDays) {
-					dateObj.setDate(dateObj.getDate() + numDays)
-					return dateObj
-				}
-				const todaysDate = new Date()
-				const returnBy = addDays(new Date(), 7)
+				const todaysDate = moment().format('YYYY-MM-DD')
+				const returnBy = moment()
+					.add(7, 'days')
+					.format('YYYY-MM-DD')
 
 				books.findAll().then(books => {
 					patrons.findAll().then(patrons => {
