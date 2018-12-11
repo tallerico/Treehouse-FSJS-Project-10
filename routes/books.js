@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const moment = require('moment')
 const { books } = require('../models')
 const { patrons } = require('../models')
 const { loans } = require('../models')
@@ -161,7 +162,8 @@ router.post('/update_book/:id', (req, res, next) => {
 })
 
 router.get('/return_book/:id', (req, res, next) => {
-	const todaysDate = new Date()
+	const todaysDate = moment().format('YYYY-MM-DD')
+
 	loans
 		.findAll({
 			include: [
