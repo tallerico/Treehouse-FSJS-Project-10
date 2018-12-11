@@ -138,7 +138,22 @@ router.post('/update_book/:id', (req, res, next) => {
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
-				res.render('new_book', { errors: error.errors })
+				books.findAll({ where: { id: req.params.id } }).then(book => {
+					loans
+						.findAll({
+							where: {
+								book_id: req.params.id,
+							},
+							include: [
+								{
+									model: patrons,
+								},
+							],
+						})
+						.then(loans => {
+							res.render('book_detail', { book, loans, errors: error.errors })
+						})
+				})
 			} else {
 				throw error
 			}
