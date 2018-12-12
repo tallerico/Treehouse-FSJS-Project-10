@@ -94,8 +94,8 @@ router.get('/new_loan', (req, res, next) => {
 router.post('/create_loan', (req, res, next) => {
 	loans
 		.create({
-			book_id: req.body.book,
-			patron_id: req.body.patron,
+			book_id: req.body.book_id,
+			patron_id: req.body.patron_id,
 			loaned_on: req.body.loanedOn,
 			return_by: req.body.returnBy,
 		})
