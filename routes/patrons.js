@@ -70,4 +70,49 @@ router.post('/create_patron', (req, res, next) => {
 		})
 })
 
+router.post(`/update_patron/:id`, (req, res, next) => {
+	patrons
+		.update(
+			{
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
+				address: req.body.address,
+				email: req.body.email,
+				library_id: req.body.library_id,
+				zip_code: req.body.zip_code,
+			},
+			{ where: { id: req.params.id } },
+		)
+		.then(response => {
+			res.redirect('/all_patrons')
+		})
+		.catch(error => {
+			if (error.name === 'SequelizeValidationError') {
+				patrons
+					.findAll({
+						where: {
+							id: req.params.id,
+						},
+					})
+					.then(patrons => {
+						loans
+							.findAll({
+								where: {
+									patron_id: req.params.id,
+								},
+								include: [{ model: books }],
+							})
+							.then(loans => {
+								res.render('patron_detail', { patrons, loans, errors: error.errors })
+							})
+					})
+					.catch(error => {
+						res.send(500, error)
+					})
+			} else {
+				throw error
+			}
+		})
+})
+
 module.exports = router

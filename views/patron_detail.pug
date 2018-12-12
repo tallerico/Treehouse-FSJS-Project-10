@@ -4,27 +4,28 @@ html
     title #{patrons[0].dataValues.first_name} #{patrons[0].dataValues.last_name}
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    include includes/errors.pug
     include nav.pug
     h1 Patron: #{patrons[0].dataValues.first_name} #{patrons[0].dataValues.last_name}
-    form
+    form(action=`/update_patron/${patrons[0].dataValues.id}` method='POST')
       p
         label(for='first_name') First Name
-        input#first_name(type='text', value=`${patrons[0].dataValues.first_name}`)
+        input#first_name(type='text', value=`${patrons[0].dataValues.first_name}`, name='first_name')
       p
         label(for='last_name') Last Name
-        input#last_name(type='text', value=`${patrons[0].dataValues.last_name}`)
+        input#last_name(type='text', value=`${patrons[0].dataValues.last_name}`, name='last_name')
       p
         label(for='address')  Address
-        input#address(type='text', value=`${patrons[0].dataValues.address}`)
+        input#address(type='text', value=`${patrons[0].dataValues.address}`, name='address')
       p
         label(for='email') Email
-        input#email(type='text', value=`${patrons[0].dataValues.email}`)
+        input#email(type='text', value=`${patrons[0].dataValues.email}` , name='email')
       p
         label(for='library_id') Library ID
-        input#library_id(type='text', value=`${patrons[0].dataValues.library_id}`)
+        input#library_id(type='text', value=`${patrons[0].dataValues.library_id}`, name='library_id')
       p
         label(for='zip_code') Zip Code
-        input#zip_code(type='text', value=`${patrons[0].dataValues.zip_code}`)
+        input#zip_code(type='text', value=`${patrons[0].dataValues.zip_code}`, name='zip_code')
       p
         input(type='submit', value='Update')
     h2 Loan History
@@ -48,6 +49,7 @@ html
             td #{loan.dataValues.return_by}
             td #{loan.dataValues.returned_on}
             td
-              a.button(href='return_book.html') Return Book
+              if(!loan.dataValues.returned_on)
+                a.button(href=`/return_book/${loan.dataValues.id}`) Return Book
       
        
