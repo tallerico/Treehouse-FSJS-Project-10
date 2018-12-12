@@ -116,6 +116,7 @@ router.post('/create_loan', (req, res, next) => {
 				})
 			} else {
 				throw error
+				console.log(error)
 			}
 		})
 })
