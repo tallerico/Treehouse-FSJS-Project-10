@@ -6,13 +6,28 @@ const { books } = require('../models')
 const { patrons } = require('../models')
 const { loans } = require('../models')
 
-router.get('/all_patrons', (req, res, next) => {
+//this function sets offset count for queries to be used with pagination
+const offsetCount = count => {
+	let offsetNum = 0
+	if (count === 1) {
+		return offsetNum
+	} else {
+		offsetNum = (count - 1) * 5
+		return offsetNum
+	}
+}
+
+router.get('/all_patrons/:count', (req, res, next) => {
+	const offNum = offsetCount(req.params.count)
+
 	patrons
-		.findAll({
-			attributes: ['id', 'first_name', 'last_name', 'address', 'email', 'library_id', 'zip_code'],
-		})
-		.then(patrons => {
-			res.render('all_patrons', { patrons })
+		.findAll({ offset: offNum, limit: 5 })
+		.then(patronLimit => {
+			patrons.findAll().then(allPatrons => {
+				const patronCount = allPatrons.length
+				const paginationCount = Math.ceil(patronCount / 5)
+				res.render('all_patrons', { patronLimit, paginationCount, patronCount })
+			})
 		})
 		.catch(error => {
 			res.send(500, error)
@@ -112,6 +127,40 @@ router.post(`/update_patron/:id`, (req, res, next) => {
 			} else {
 				throw error
 			}
+		})
+})
+
+router.post('/search/patrons', (req, res, next) => {
+	patrons
+		.findAll({
+			where: {
+				[Op.or]: {
+					first_name: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+					last_name: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+					address: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+					email: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+					library_id: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+					zip_code: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+				},
+			},
+		})
+		.then(patronLimit => {
+			res.render('all_patrons', { patronLimit })
+		})
+		.catch(error => {
+			res.render('error', { error })
 		})
 })
 

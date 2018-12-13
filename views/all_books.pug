@@ -6,6 +6,10 @@ html
   body
     include nav.pug
     include includes/book_filters.pug
+    form(action='/search/books' method='POST')
+      label Search
+      input(type='text' name='searchValue')
+      input(type='submit', value='Search Now')
     table
       thead
         tr
@@ -14,10 +18,16 @@ html
           th Genre
           th Year Released
       tbody
-        each book in books
+        each book in bookLimit
           tr
           td
             a(href=`book_detail/${book.dataValues.id}`) #{book.dataValues.title}
           td #{book.dataValues.author}
           td #{book.dataValues.genre}
           td #{book.dataValues.first_published}
+    .paginationContainer
+      if( bookCount > 5 )
+        ul
+          - for (var index = 1; index <= paginationCount; index++)
+            li
+              a(href=`/all_books/${index}` title="#{index}") #{index}

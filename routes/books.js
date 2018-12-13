@@ -9,18 +9,58 @@ const { loans } = require('../models')
 const { body, validationResult } = require('express-validator/check')
 const { sanitizeBody } = require('express-validator/filter')
 
+//this function sets offset count for queries to be used with pagination
+const offsetCount = count => {
+	let offsetNum = 0
+	if (count === 1) {
+		return offsetNum
+	} else {
+		offsetNum = (count - 1) * 5
+		return offsetNum
+	}
+}
+
 /* GET all_books page */
 
-router.get('/all_books', (req, res, next) => {
+router.get('/all_books/:count', (req, res, next) => {
+	const offNum = offsetCount(req.params.count)
+
 	books
-		.findAll({
-			attributes: ['id', 'title', 'author', 'genre', 'first_published'],
-		})
-		.then(books => {
-			res.render('all_books', { books })
+		.findAll({ offset: offNum, limit: 5 })
+		.then(bookLimit => {
+			books.findAll().then(allBooks => {
+				const bookCount = allBooks.length
+				const paginationCount = Math.ceil(bookCount / 5)
+				res.render('all_books', { bookLimit, paginationCount, bookCount })
+			})
 		})
 		.catch(error => {
 			res.send(500, error)
+		})
+})
+
+router.post('/search/books', (req, res, next) => {
+	books
+		.findAll({
+			where: {
+				[Op.or]: {
+					title: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+					genre: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+					author: {
+						[Op.like]: `%${req.body.searchValue}%`,
+					},
+				},
+			},
+		})
+		.then(bookLimit => {
+			res.render('all_books', { bookLimit })
+		})
+		.catch(error => {
+			res.render('error', { error })
 		})
 })
 
@@ -74,7 +114,7 @@ router.get('/overdue_books', (req, res, next) => {
 			res.render('overdue_books', { books })
 		})
 		.catch(error => {
-			res.send(500, error)
+			res.render('error', { error })
 		})
 })
 
