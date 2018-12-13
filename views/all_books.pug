@@ -21,7 +21,7 @@ html
         each book in bookLimit
           tr
           td
-            a(href=`book_detail/${book.dataValues.id}`) #{book.dataValues.title}
+            a(href=`/book_detail/${book.dataValues.id}`) #{book.dataValues.title}
           td #{book.dataValues.author}
           td #{book.dataValues.genre}
           td #{book.dataValues.first_published}
