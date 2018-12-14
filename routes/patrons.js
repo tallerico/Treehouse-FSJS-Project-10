@@ -99,7 +99,7 @@ router.post(`/update_patron/:id`, (req, res, next) => {
 			{ where: { id: req.params.id } },
 		)
 		.then(response => {
-			res.redirect('/all_patrons')
+			res.redirect('/all_patrons/1')
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
