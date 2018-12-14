@@ -175,7 +175,7 @@ router.post('/update_book/:id', (req, res, next) => {
 			{ where: { id: req.params.id } },
 		)
 		.then(response => {
-			res.redirect('/all_books')
+			res.redirect('/all_books/1')
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
@@ -235,8 +235,25 @@ router.post(`/return/:id`, (req, res, next) => {
 			res.redirect('/all_loans')
 		})
 		.catch(error => {
+			const todaysDate = moment().format('YYYY-MM-DD')
 			if (error.name === 'SequelizeValidationError') {
-				res.render('new_book', { errors: error.errors })
+				loans
+					.findAll({
+						include: [
+							{
+								model: patrons,
+							},
+							{
+								model: books,
+							},
+						],
+						where: {
+							id: req.params.id,
+						},
+					})
+					.then(loan => {
+						res.render('return_book', { loan, todaysDate, errors: error.errors })
+					})
 			} else {
 				throw error
 			}
