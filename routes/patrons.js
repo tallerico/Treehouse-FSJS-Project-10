@@ -74,13 +74,13 @@ router.post('/create_patron', (req, res, next) => {
 			zip_code: req.body.zip,
 		})
 		.then(response => {
-			res.redirect('/all_patrons')
+			res.redirect('/all_patrons/1')
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
 				res.render('new_patron', { errors: error.errors })
 			} else {
-				throw error
+				console.log(error)
 			}
 		})
 })

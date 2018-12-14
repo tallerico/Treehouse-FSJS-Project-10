@@ -152,13 +152,13 @@ router.post('/create_book', (req, res, next) => {
 			first_published: req.body.published,
 		})
 		.then(response => {
-			res.redirect('/all_books')
+			res.redirect('/all_books/1')
 		})
 		.catch(error => {
 			if (error.name === 'SequelizeValidationError') {
 				res.render('new_book', { errors: error.errors })
 			} else {
-				throw error
+				console.log(error)
 			}
 		})
 })
