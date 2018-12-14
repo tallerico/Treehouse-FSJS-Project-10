@@ -7,7 +7,7 @@ html
     include nav.pug
     h1 Checked Out Books
     p
-      a.button(href='new_loan.html') Create New Loan
+      a.button(href='/new_loan') Create New Loan
     include includes/loan_filters.pug
     table
       thead
@@ -22,11 +22,11 @@ html
         each loan in loans
           tr
             td
-              a(href='book_detail.html') #{loan.dataValues.book.dataValues.title}
+              a(href=`book_detail/${loan.dataValues.book.dataValues.id}`) #{loan.dataValues.book.dataValues.title}
             td
-              a(href='patron_detail.html') #{loan.dataValues.patron.dataValues.first_name} #{loan.dataValues.patron.dataValues.last_name}
+              a(href=`patron_detail/${loan.dataValues.patron.dataValues.id}`) #{loan.dataValues.patron.dataValues.first_name} #{loan.dataValues.patron.dataValues.last_name}
             td #{loan.dataValues.loaned_on}
             td #{loan.dataValues.return_by}
             td #{loan.dataValues.returned_on}
             td
-              a.button(href='return_book.html') Return Bookturn Book
+              a.button(href=`/return_book/${loan.dataValues.id}`) Return Book
